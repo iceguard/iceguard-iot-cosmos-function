@@ -1,0 +1,41 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+  - master
+
+variables:
+  - group: iot-to-cosmos-function
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+  - task: Maven@3
+    displayName: Maven-Package
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      goals: 'package'
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: Artifact staging'
+    inputs:
+      SourceFolder: $(System.DefaultWorkingDirectory)
+      Contents: '**/azure-functions/**'
+      TargetFolder: $(Build.ArtifactStagingDirectory)
+  - task: ArchiveFiles@2
+    displayName: 'Archive $(Build.ArtifactStagingDirectory)/target/azure-functions/$(functionAppMvnTargetFolder)'
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/target/azure-functions/$(functionAppMvnTargetFolder)'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      includeRootFolder: false
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      artifactName: 'iot-to-cosmos-function-artifact'
+
