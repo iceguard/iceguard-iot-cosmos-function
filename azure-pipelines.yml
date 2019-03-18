@@ -13,6 +13,8 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
+  - task: Npm@1
+    - install -g azure-functions-core-tools
   - task: Maven@3
     displayName: Maven-Package
     inputs:
@@ -21,7 +23,7 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
-      goals: 'package'
+      goals: 'package -DskipTests=true'
   - task: CopyFiles@2
     displayName: 'Copy Files to: Artifact staging'
     inputs:
