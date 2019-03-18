@@ -14,7 +14,8 @@ pool:
 
 steps:
   - task: Npm@1
-    - install -g azure-functions-core-tools
+    inputs:
+      command: 'install -g azure-functions-core-tools'
   - task: Maven@3
     displayName: Maven-Package
     inputs:
