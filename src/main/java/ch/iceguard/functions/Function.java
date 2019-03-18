@@ -9,9 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
 
-/**
- * Azure Functions with HTTP Trigger.
- */
 public class Function {
 
     private Measurement measurement = new Measurement();
