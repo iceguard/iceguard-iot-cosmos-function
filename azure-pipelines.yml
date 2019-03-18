@@ -13,10 +13,10 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-  - task: Npm@1
+  - task: DotNetCoreInstaller@0
     inputs:
-      command: 'custom'
-      customCommand: 'install -g azure-functions-core-tools'
+      packageType: 'sdk'
+      version: '2.2.105'
   - task: Maven@3
     displayName: Maven-Package
     inputs:
