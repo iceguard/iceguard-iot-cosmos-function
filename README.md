@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/ice-guard-surveillance-system/igss/_apis/build/status/iceguard.iceguard-iot-cosmos-function?branchName=master)](https://dev.azure.com/ice-guard-surveillance-system/igss/_build/latest?definitionId=17&branchName=master)
+
 # Build & deploy
 
 `
