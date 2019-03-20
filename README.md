@@ -10,6 +10,15 @@ mvn clean install
 mvn azure-functions:deploy
 `
 
+# Run locally
+
+You need to have a local.settings.json with all needed values (see template bellow)
+in order to run the function locally.
+
+`
+mvn azure-functions:run
+`
+
 # Connect to logs
 
 `
@@ -39,7 +48,8 @@ requires dotnet (core)
     "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "",
     "igss_COSMOS_DB": "",
     "igss-iothub_events_IOTHUB": "",
-    "storageAccount": ""
+    "storageAccount": "",
+    "collection-name-COSMOS": ""
   },
   "ConnectionStrings": {}
 }
