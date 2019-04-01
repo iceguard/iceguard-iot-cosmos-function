@@ -30,6 +30,7 @@ public class Function {
         JsonFactory factory = new JsonFactory();
         JsonParser parser = factory.createParser(message);
         Document document = new Document();
+        System.out.println(message);
 
         while (!parser.isClosed()) {
             JsonToken jsonToken = parser.nextToken();
@@ -76,5 +77,29 @@ public class Function {
         if ("humidity".equals(fieldName)) {
             document.append("humidity", parser.getValueAsDouble());
         }
+<<<<<<< Updated upstream
+=======
+        if (TIMESTAMP.equals(fieldName)) {
+            document.append(TIMESTAMP, parser.getValueAsDouble());
+        }
+        if ("acceleratorX".equals(fieldName)) {
+            document.append("acceleratorX", parser.getValueAsDouble());
+        }
+        if ("acceleratorY".equals(fieldName)) {
+            document.append("acceleratorY", parser.getValueAsDouble());
+        }
+        if ("acceleratorZ".equals(fieldName)) {
+            document.append("acceleratorZ", parser.getValueAsDouble());
+        }
+        if ("gyroscopeX".equals(fieldName)) {
+            document.append("gyroscopeX", parser.getValueAsDouble());
+        }
+        if ("gyroscopeY".equals(fieldName)) {
+            document.append("gyroscopeY", parser.getValueAsDouble());
+        }
+        if ("gyroscopeZ".equals(fieldName)) {
+            document.append("gyroscopeZ", parser.getValueAsDouble());
+        }
+>>>>>>> Stashed changes
     }
 }
