@@ -15,6 +15,8 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Function {
 
@@ -55,6 +57,9 @@ public class Function {
         }
         if (!document.containsKey(DEVICE_ID)) {
             document.append(DEVICE_ID, "simulator");
+        }
+        if (!document.containsKey(TIMESTAMP)) {
+            document.append(TIMESTAMP, Timestamp.valueOf(LocalDateTime.now()));
         }
     }
 
