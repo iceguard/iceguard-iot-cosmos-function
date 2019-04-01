@@ -20,6 +20,7 @@ public class Function {
 
     private static final String MESSAGE_ID = "messageId";
     private static final String DEVICE_ID = "deviceId";
+    private static final String TIMESTAMP = "timestamp";
 
     @FunctionName("iot-cosmos-processor")
     @StorageAccount("storageAccount")
@@ -30,7 +31,6 @@ public class Function {
         JsonFactory factory = new JsonFactory();
         JsonParser parser = factory.createParser(message);
         Document document = new Document();
-        System.out.println(message);
 
         while (!parser.isClosed()) {
             JsonToken jsonToken = parser.nextToken();
@@ -77,8 +77,6 @@ public class Function {
         if ("humidity".equals(fieldName)) {
             document.append("humidity", parser.getValueAsDouble());
         }
-<<<<<<< Updated upstream
-=======
         if (TIMESTAMP.equals(fieldName)) {
             document.append(TIMESTAMP, parser.getValueAsDouble());
         }
@@ -100,6 +98,5 @@ public class Function {
         if ("gyroscopeZ".equals(fieldName)) {
             document.append("gyroscopeZ", parser.getValueAsDouble());
         }
->>>>>>> Stashed changes
     }
 }
