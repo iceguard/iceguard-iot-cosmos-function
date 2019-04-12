@@ -34,7 +34,6 @@ public class Function {
         JsonFactory factory = new JsonFactory();
         Document document;
         Document measurementValues;
-        System.out.println(message);
         try (JsonParser parser = factory.createParser(message)) {
             document = new Document();
             measurementValues = new Document();
