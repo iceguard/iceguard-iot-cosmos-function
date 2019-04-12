@@ -13,15 +13,20 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
 public class Function {
 
-    private static final String MESSAGE_ID = "messageId";
-    private static final String DEVICE_ID = "deviceId";
+    private static final String MESSAGE_ID = "msgId";
+    private static final String DEVICE_ID = "devId";
     private static final String TIMESTAMP = "timestamp";
     private static final String MEASUREMENT_VALUE_FIELD = "values";
 
@@ -50,6 +55,7 @@ public class Function {
         document.append(MEASUREMENT_VALUE_FIELD, measurementValues);
         validateDocument(document);
 
+        System.out.println("Hallo");
         try (MongoClient mongoClient = new MongoClient(new MongoClientURI(System.getenv("iceguard-iot_DOCUMENTDB")))) {
             MongoCollection<Document> collection = getMongoCollection(mongoClient);
             collection.insertOne(document);
@@ -58,11 +64,11 @@ public class Function {
     }
 
     private void validateDocument(Document document) {
-        if (!document.containsKey(MESSAGE_ID)) {
-            document.append(MESSAGE_ID, 0);
+        if (!document.containsKey("messageId")) {
+            document.append("messageId", 0);
         }
-        if (!document.containsKey(DEVICE_ID)) {
-            document.append(DEVICE_ID, "simulator");
+        if (!document.containsKey("deviceId")) {
+            document.append("deviceId", "simulator");
         }
         if (!document.containsKey(TIMESTAMP)) {
             document.append(TIMESTAMP, Timestamp.valueOf(LocalDateTime.now()));
@@ -70,43 +76,45 @@ public class Function {
     }
 
     private static MongoCollection<Document> getMongoCollection(MongoClient client) {
+        CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         MongoDatabase database = client.getDatabase("iceguard-iot");
-        return database.getCollection(System.getenv("collection-name-COSMOS"));
+        return database.getCollection(System.getenv("collection-name-COSMOS")).withCodecRegistry(pojoCodecRegistry);
     }
 
     private static void setDocumentValue(JsonParser parser, Document document, Document measurementValues) throws IOException {
         String fieldName = parser.getCurrentName();
         if (MESSAGE_ID.equals(fieldName)) {
-            document.append(MESSAGE_ID, parser.getValueAsInt());
+            document.append("messageId", parser.getValueAsInt());
         }
         if (DEVICE_ID.equals(fieldName)) {
-            document.append(DEVICE_ID, parser.getValueAsString());
+            document.append("deviceId", parser.getValueAsString());
         }
-        if ("temperature".equals(fieldName)) {
+        if ("temp".equals(fieldName)) {
             measurementValues.append("temperature", parser.getValueAsDouble());
         }
-        if ("humidity".equals(fieldName)) {
+        if ("hum".equals(fieldName)) {
             measurementValues.append("humidity", parser.getValueAsDouble());
         }
         if (TIMESTAMP.equals(fieldName)) {
             document.append(TIMESTAMP, parser.getValueAsDouble());
         }
-        if ("acceleratorX".equals(fieldName)) {
+        if ("accX".equals(fieldName)) {
             measurementValues.append("acceleratorX", parser.getValueAsDouble());
         }
-        if ("acceleratorY".equals(fieldName)) {
+        if ("accY".equals(fieldName)) {
             measurementValues.append("acceleratorY", parser.getValueAsDouble());
         }
-        if ("acceleratorZ".equals(fieldName)) {
+        if ("accZ".equals(fieldName)) {
             measurementValues.append("acceleratorZ", parser.getValueAsDouble());
         }
-        if ("gyroscopeX".equals(fieldName)) {
+        if ("gyroX".equals(fieldName)) {
             measurementValues.append("gyroscopeX", parser.getValueAsDouble());
         }
-        if ("gyroscopeY".equals(fieldName)) {
+        if ("gyroY".equals(fieldName)) {
             measurementValues.append("gyroscopeY", parser.getValueAsDouble());
         }
-        if ("gyroscopeZ".equals(fieldName)) {
+        if ("gyroZ".equals(fieldName)) {
             measurementValues.append("gyroscopeZ", parser.getValueAsDouble());
         }
     }
