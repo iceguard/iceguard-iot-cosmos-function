@@ -27,6 +27,7 @@ steps:
       mvn sonar:sonar \
         -Dsonar.projectKey=iceguard_iceguard-iot-cosmos-function \
         -Dsonar.organization=iceguard \
+        -Dsonar.projectName=iceguard-iot-cosmos-functions \
         -Dsonar.host.url=https://sonarcloud.io \
         -Dsonar.login=$SONARCUBE_LOGIN_IOT_COSMOS_FUNCTIONS
   - task: CopyFiles@2

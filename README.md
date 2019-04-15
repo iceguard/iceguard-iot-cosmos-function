@@ -1,4 +1,5 @@
 [![Build Status](https://dev.azure.com/ice-guard-surveillance-system/igss/_apis/build/status/iceguard.iceguard-iot-cosmos-function?branchName=master)](https://dev.azure.com/ice-guard-surveillance-system/igss/_build/latest?definitionId=17&branchName=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=iceguard_iceguard-iot-cosmos-function&metric=alert_status)](https://sonarcloud.io/dashboard?id=iceguard_iceguard-iot-cosmos-function)
 
 # Build & deploy
 
