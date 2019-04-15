@@ -23,6 +23,12 @@ steps:
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
       goals: 'package -DskipTests=true'
+  - bash: |
+      mvn sonar:sonar \
+        -Dsonar.projectKey=iceguard_iceguard-iot-cosmos-function \
+        -Dsonar.organization=iceguard \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.login=$SONARCUBE_LOGIN_IOT_COSMOS_FUNCTIONS
   - task: CopyFiles@2
     displayName: 'Copy Files to: Artifact staging'
     inputs:
