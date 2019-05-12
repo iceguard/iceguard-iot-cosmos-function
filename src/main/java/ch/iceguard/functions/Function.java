@@ -117,5 +117,8 @@ public class Function {
         if ("gyroZ".equals(fieldName)) {
             measurementValues.append("gyroscopeZ", parser.getValueAsDouble());
         }
+        if ("step".equals(fieldName)) {
+            measurementValues.append("steps", parser.getValueAsInt());
+        }
     }
 }
