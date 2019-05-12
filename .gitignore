@@ -27,7 +27,11 @@ hs_err_pid*
 
 # IntelliJ
 .idea
+*.iml
 
 # dotnet
 obj/
 *.csproj
+
+# maven
+target/
