@@ -24,7 +24,7 @@ steps:
       jdkArchitectureOption: 'x64'
       goals: '-B package'
   - bash: |
-      mvn sonar:sonar \
+      mvn -B sonar:sonar \
         -Dsonar.projectKey=iceguard_iceguard-iot-cosmos-function \
         -Dsonar.organization=iceguard \
         -Dsonar.projectName=iceguard-iot-cosmos-functions \
