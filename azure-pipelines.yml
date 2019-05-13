@@ -22,7 +22,7 @@ steps:
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '1.8'
       jdkArchitectureOption: 'x64'
-      goals: 'package -DskipTests=true'
+      goals: '-B package'
   - bash: |
       mvn sonar:sonar \
         -Dsonar.projectKey=iceguard_iceguard-iot-cosmos-function \
